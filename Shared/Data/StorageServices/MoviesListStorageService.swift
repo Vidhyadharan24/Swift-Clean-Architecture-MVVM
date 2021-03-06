@@ -26,7 +26,7 @@ final class MoviesListStorageService {
     private func fetchRequest(for query: MoviesListRequest) -> NSFetchRequest<MoviesListRequestEntity> {
         let request: NSFetchRequest = MoviesListRequestEntity.fetchRequest()
         request.predicate = NSPredicate(format: "%K = %@ AND %K = %d",
-                                        #keyPath(MoviesListRequestEntity.category), query.category,
+                                        #keyPath(MoviesListRequestEntity.category), query.category.rawValue,
                                         #keyPath(MoviesListRequestEntity.page), query.page)
         return request
     }

@@ -12,6 +12,10 @@
 		1832492A25F3D1DB003A7054 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184424CB25EB69E200B54ECC /* NetworkDecodableService.swift */; };
 		1832493125F3D1DD003A7054 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184424CB25EB69E200B54ECC /* NetworkDecodableService.swift */; };
 		1832495125F3D421003A7054 /* MoviesListResponseEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832495025F3D421003A7054 /* MoviesListResponseEntity+Mapping.swift */; };
+		1832496725F3E9C8003A7054 /* MoviesListRespository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832496625F3E9C8003A7054 /* MoviesListRespository.swift */; };
+		1832497625F3EB2D003A7054 /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832497525F3EB2D003A7054 /* RepositoryTask.swift */; };
+		1832498025F3EB4C003A7054 /* Cancelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832497E25F3EB4B003A7054 /* Cancelable.swift */; };
+		1832499325F4082F003A7054 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1832498F25F4082F003A7054 /* APIEndpoints.swift */; };
 		184424C525EA7C0700B54ECC /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184424C425EA7C0700B54ECC /* EndPoint.swift */; };
 		184424C625EA7C0700B54ECC /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184424C425EA7C0700B54ECC /* EndPoint.swift */; };
 		184424C825EA812300B54ECC /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184424C725EA812300B54ECC /* ApiConfig.swift */; };
@@ -79,6 +83,10 @@
 		1832487325F36E99003A7054 /* MoviesListRequestEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListRequestEntity+Mapping.swift"; sourceTree = "<group>"; };
 		1832489525F3AD51003A7054 /* MoviesListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListResponse.swift; sourceTree = "<group>"; };
 		1832495025F3D421003A7054 /* MoviesListResponseEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesListResponseEntity+Mapping.swift"; sourceTree = "<group>"; };
+		1832496625F3E9C8003A7054 /* MoviesListRespository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListRespository.swift; sourceTree = "<group>"; };
+		1832497525F3EB2D003A7054 /* RepositoryTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		1832497E25F3EB4B003A7054 /* Cancelable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancelable.swift; sourceTree = "<group>"; };
+		1832498F25F4082F003A7054 /* APIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		184424C425EA7C0700B54ECC /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		184424C725EA812300B54ECC /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
 		184424CB25EB69E200B54ECC /* NetworkDecodableService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
@@ -207,6 +215,49 @@
 			path = ResponseModels;
 			sourceTree = "<group>";
 		};
+		1832496425F3E992003A7054 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1832498E25F4082F003A7054 /* Network */,
+				1832496525F3E9B3003A7054 /* Respositories */,
+				1871603B25F226170092EEC3 /* StorageServices */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1832496525F3E9B3003A7054 /* Respositories */ = {
+			isa = PBXGroup;
+			children = (
+				1832496625F3E9C8003A7054 /* MoviesListRespository.swift */,
+				1832497425F3EB2D003A7054 /* Utils */,
+			);
+			path = Respositories;
+			sourceTree = "<group>";
+		};
+		1832497425F3EB2D003A7054 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1832497525F3EB2D003A7054 /* RepositoryTask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1832497D25F3EB4B003A7054 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1832497E25F3EB4B003A7054 /* Cancelable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		1832498E25F4082F003A7054 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1832498F25F4082F003A7054 /* APIEndpoints.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1871603B25F226170092EEC3 /* StorageServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +347,8 @@
 		1882E38525E506F2008E9505 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1832497D25F3EB4B003A7054 /* Common */,
+				1832496425F3E992003A7054 /* Data */,
 				1885073525F1905D008A2500 /* Application */,
 				1882E38925E50908008E9505 /* Network */,
 				1882E38825E50859008E9505 /* Persistence */,
@@ -309,7 +362,6 @@
 				184B02B225EE3D79008582C7 /* TMDB.xcdatamodeld */,
 				1882E36025E504E3008E9505 /* PersistenceManager.swift */,
 				1832486025F36D5A003A7054 /* Entity+Mapping */,
-				1871603B25F226170092EEC3 /* StorageServices */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -561,10 +613,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1832495125F3D421003A7054 /* MoviesListResponseEntity+Mapping.swift in Sources */,
+				1832496725F3E9C8003A7054 /* MoviesListRespository.swift in Sources */,
 				1832489625F3AD51003A7054 /* MoviesListResponse.swift in Sources */,
 				184424CF25EB6B4300B54ECC /* NetworkDataService.swift in Sources */,
 				184424C825EA812300B54ECC /* ApiConfig.swift in Sources */,
 				1882E32525E504AC008E9505 /* ViewController.swift in Sources */,
+				1832498025F3EB4C003A7054 /* Cancelable.swift in Sources */,
 				1832487425F36E99003A7054 /* MoviesListRequestEntity+Mapping.swift in Sources */,
 				1882E32125E504AC008E9505 /* AppDelegate.swift in Sources */,
 				1882E32325E504AC008E9505 /* SceneDelegate.swift in Sources */,
@@ -573,6 +627,8 @@
 				1888590425E76138002802E4 /* NetworkSessionManager.swift in Sources */,
 				1871605925F227920092EEC3 /* MoviesListRequest.swift in Sources */,
 				1885073725F1905D008A2500 /* AppConfig.swift in Sources */,
+				1832499325F4082F003A7054 /* APIEndpoints.swift in Sources */,
+				1832497625F3EB2D003A7054 /* RepositoryTask.swift in Sources */,
 				1832492A25F3D1DB003A7054 /* NetworkDecodableService.swift in Sources */,
 				184B02B425EE3D79008582C7 /* TMDB.xcdatamodeld in Sources */,
 				1882E38625E5075C008E9505 /* PersistenceManager.swift in Sources */,

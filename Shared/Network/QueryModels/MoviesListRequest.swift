@@ -8,6 +8,6 @@
 import Foundation
 
 struct MoviesListRequest: Encodable {
-    let category: String
-    let page: Int32
+    let category: MoviesListCategory
+    let page: Int
 }

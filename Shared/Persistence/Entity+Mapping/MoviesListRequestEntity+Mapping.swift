@@ -11,7 +11,7 @@ import CoreData
 extension MoviesListRequestEntity {
     convenience init(moviesRequest: MoviesListRequest, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        category = moviesRequest.category
-        page = moviesRequest.page
+        category = moviesRequest.category.rawValue
+        page = Int32(moviesRequest.page)
     }
 }
