@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="MovieDetailsEntity" representedClassName=".MovieDetailsEntity" syncable="YES" codeGenerationType="category">
-        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="originalLanguage" optional="YES" attributeType="String"/>
-        <attribute name="overview" optional="YES" attributeType="String"/>
-        <attribute name="posterPath" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="movie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MovieEntity" inverseName="details" inverseEntity="MovieEntity"/>
-    </entity>
-    <entity name="MovieEntity" representedClassName=".MovieEntity" syncable="YES" codeGenerationType="category">
-        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    <entity name="MovieEntity" representedClassName="MovieEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
         <attribute name="overview" optional="YES" attributeType="String"/>
         <attribute name="popularity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="posterPath" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="details" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MovieDetailsEntity" inverseName="movie" inverseEntity="MovieDetailsEntity"/>
-        <relationship name="moviesResponse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesResponseEntity" inverseName="movies" inverseEntity="MoviesResponseEntity"/>
+        <relationship name="moviesResponse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesListResponseEntity" inverseName="movies" inverseEntity="MoviesListResponseEntity"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
-    <entity name="MoviesListRequestEntity" representedClassName=".MoviesListRequestEntity" syncable="YES" codeGenerationType="category">
+    <entity name="MoviesListRequestEntity" representedClassName="MoviesListRequestEntity" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="response" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="MoviesResponseEntity" inverseName="request" inverseEntity="MoviesResponseEntity"/>
+        <relationship name="response" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MoviesListResponseEntity" inverseName="request" inverseEntity="MoviesListResponseEntity"/>
     </entity>
-    <entity name="MoviesResponseEntity" representedClassName=".MoviesResponseEntity" syncable="YES" codeGenerationType="category">
+    <entity name="MoviesListResponseEntity" representedClassName="MoviesListResponseEntity" syncable="YES" codeGenerationType="class">
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalPages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="movies" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="MovieEntity" inverseName="moviesResponse" inverseEntity="MovieEntity"/>
-        <relationship name="request" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="MoviesListRequestEntity" inverseName="response" inverseEntity="MoviesListRequestEntity"/>
+        <relationship name="movies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MovieEntity" inverseName="moviesResponse" inverseEntity="MovieEntity"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesListRequestEntity" inverseName="response" inverseEntity="MoviesListRequestEntity"/>
     </entity>
     <elements>
-        <element name="MovieDetailsEntity" positionX="-63" positionY="27" width="128" height="119"/>
-        <element name="MovieEntity" positionX="160" positionY="192" width="128" height="134"/>
+        <element name="MovieEntity" positionX="160" positionY="192" width="128" height="119"/>
         <element name="MoviesListRequestEntity" positionX="45" positionY="162" width="128" height="74"/>
-        <element name="MoviesResponseEntity" positionX="54" positionY="171" width="128" height="89"/>
+        <element name="MoviesListResponseEntity" positionX="54" positionY="171" width="128" height="89"/>
     </elements>
 </model>

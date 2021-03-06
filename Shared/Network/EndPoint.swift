@@ -39,13 +39,13 @@ public protocol APIRequest {
     func urlRequest(with apiConfig: ApiConfig) throws -> URLRequest
 }
 
-public protocol EntityAPIRequest: APIRequest {
+public protocol DecodableAPIRequest: APIRequest {
     associatedtype Response
     
     var responseDecoder: ResponseDecoder { get }
 }
 
-public class Endpoint<R>: EntityAPIRequest {
+public class Endpoint<R>: DecodableAPIRequest {
     public typealias Response = R
     
     public let path: String

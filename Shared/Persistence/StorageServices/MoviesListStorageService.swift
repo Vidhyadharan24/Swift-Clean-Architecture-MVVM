@@ -9,8 +9,8 @@ import Foundation
 import CoreData
 
 protocol MoviesListStorageServiceProtocol {
-    func getResponse(for request: MoviesListRequest, completion: @escaping (Result<MoviesResponseEntity?, PersistanceError>) -> Void)
-    func save(response: MoviesResponseEntity, for request: MoviesListRequest)
+    func getResponse(for request: MoviesListRequest, completion: @escaping (Result<MoviesListResponseEntity?, PersistanceError>) -> Void)
+    func save(response: MoviesListResponse, for request: MoviesListRequest)
 }
 
 final class MoviesListStorageService {
@@ -46,7 +46,7 @@ final class MoviesListStorageService {
 
 extension MoviesListStorageService: MoviesListStorageServiceProtocol {
 
-    func getResponse(for request: MoviesListRequest, completion: @escaping (Result<MoviesResponseEntity?, PersistanceError>) -> Void) {
+    func getResponse(for request: MoviesListRequest, completion: @escaping (Result<MoviesListResponseEntity?, PersistanceError>) -> Void) {
         let context = persistenceManager.viewContext
         context.perform {
             do {
@@ -60,14 +60,15 @@ extension MoviesListStorageService: MoviesListStorageServiceProtocol {
         }
     }
     
-    func save(response: MoviesResponseEntity, for request: MoviesListRequest) {
+    func save(response: MoviesListResponse, for request: MoviesListRequest) {
         let context = persistenceManager.backgroundContext
         context.perform {
             do {
                 self.deleteResponse(for: request, in: context)
 
-                let requestEntity = request.toEntity(in: context)
-                requestEntity.response = response
+                let requestEntity = MoviesListRequestEntity(moviesRequest: request, insertInto: context)
+                let responseEntity = MoviesListResponseEntity(moviesListResponse: response, insertInto: context)
+                requestEntity.response = responseEntity
                 
                 try context.save()
             } catch {
