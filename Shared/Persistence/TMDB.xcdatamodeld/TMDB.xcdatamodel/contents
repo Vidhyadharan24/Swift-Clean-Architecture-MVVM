@@ -14,13 +14,13 @@
         </uniquenessConstraints>
     </entity>
     <entity name="MoviesListRequestEntity" representedClassName="MoviesListRequestEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="String"/>
-        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="category" attributeType="String"/>
+        <attribute name="page" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="response" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MoviesListResponseEntity" inverseName="request" inverseEntity="MoviesListResponseEntity"/>
     </entity>
     <entity name="MoviesListResponseEntity" representedClassName="MoviesListResponseEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="totalPages" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="page" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalPages" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="movies" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MovieEntity" inverseName="moviesResponse" inverseEntity="MovieEntity"/>
         <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesListRequestEntity" inverseName="response" inverseEntity="MoviesListRequestEntity"/>
     </entity>
