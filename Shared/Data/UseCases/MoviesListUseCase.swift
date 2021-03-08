@@ -15,20 +15,20 @@ protocol MoviesListUseCaseProtocol {
 
 final class MoviesListUseCase: MoviesListUseCaseProtocol {
 
-    private let moviesRepository: MoviesListRepository
+    private let moviesListRepository: MoviesListRepositoryProtocol
 
-    init(moviesRepository: MoviesListRepository) {
-        self.moviesRepository = moviesRepository
+    init(moviesListRepository: MoviesListRepositoryProtocol) {
+        self.moviesListRepository = moviesListRepository
     }
 
     func execute(requestValue: MoviesListUseCaseRequestValue,
                  cached: @escaping (MoviesListResponseEntity) -> Void,
                  completion: @escaping (Result<MoviesListResponseEntity, Error>) -> Void) -> Cancellable? {
 
-        return moviesRepository.fetchMoviesList(category: requestValue.category,
-                                                page: requestValue.page,
-                                                cached: cached,
-                                                completion: { result in
+        return moviesListRepository.fetchMoviesList(category: requestValue.category,
+                                                    page: requestValue.page,
+                                                    cached: cached,
+                                                    completion: { result in
             completion(result)
         })
     }

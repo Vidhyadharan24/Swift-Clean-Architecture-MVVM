@@ -23,19 +23,19 @@ final class MoviesListStorageService {
 
     // MARK: - Private
 
-    private func fetchRequest(for query: MoviesListRequest) -> NSFetchRequest<MoviesListRequestEntity> {
-        let request: NSFetchRequest = MoviesListRequestEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "%K = %@ AND %K = %d",
-                                        #keyPath(MoviesListRequestEntity.category), query.category.rawValue,
-                                        #keyPath(MoviesListRequestEntity.page), query.page)
-        return request
+    private func getFetchRequest(for request: MoviesListRequest) -> NSFetchRequest<MoviesListRequestEntity> {
+        let fetchRequest: NSFetchRequest = MoviesListRequestEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K = %@ AND %K = %d",
+                                        #keyPath(MoviesListRequestEntity.category), request.category.rawValue,
+                                        #keyPath(MoviesListRequestEntity.page), request.page)
+        return fetchRequest
     }
 
-    private func deleteResponse(for query: MoviesListRequest, in context: NSManagedObjectContext) {
-        let request = fetchRequest(for: query)
+    private func deleteResponse(for request: MoviesListRequest, in context: NSManagedObjectContext) {
+        let fetchRequest = getFetchRequest(for: request)
 
         do {
-            if let result = try context.fetch(request).first {
+            if let result = try context.fetch(fetchRequest).first {
                 context.delete(result)
             }
         } catch {
@@ -50,7 +50,7 @@ extension MoviesListStorageService: MoviesListStorageServiceProtocol {
         let context = persistenceManager.viewContext
         context.perform {
             do {
-                let fetchRequest = self.fetchRequest(for: request)
+                let fetchRequest = self.getFetchRequest(for: request)
                 let requestEntity = try context.fetch(fetchRequest).first
 
                 completion(.success(requestEntity?.response))
@@ -62,7 +62,7 @@ extension MoviesListStorageService: MoviesListStorageServiceProtocol {
     
     func save(response: MoviesListResponse, for request: MoviesListRequest) {
         let context = persistenceManager.backgroundContext
-        context.perform {
+        context.performAndWait {
             do {
                 self.deleteResponse(for: request, in: context)
 

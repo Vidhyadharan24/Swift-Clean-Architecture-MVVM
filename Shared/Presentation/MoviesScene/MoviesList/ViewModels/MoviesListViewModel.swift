@@ -8,20 +8,18 @@
 import Foundation
 
 struct MoviesListViewModelActions {
-    /// Note: if you would need to edit movie inside Details screen and update this Movies List screen with updated movie then you would need this closure:
-    /// showMovieDetails: (Movie, @escaping (_ updated: Movie) -> Void) -> Void
     let showMovieDetails: (MovieEntity) -> Void
-    let showMovieQueriesSuggestions: (@escaping (_ didSelect: MoviesListRequest) -> Void) -> Void
-    let closeMovieQueriesSuggestions: () -> Void
 }
 
 enum MoviesListViewModelLoading {
     case fullScreen
+    case refresh
     case nextPage
 }
 
 protocol MoviesListViewModelInputProtocol {
     func viewDidLoad()
+    func refresh()
     func didLoadNextPage()
     func didChangeList(to category: MoviesListCategory)
     func didSelectItem(at index: Int)
@@ -33,6 +31,7 @@ protocol MoviesListViewModelOutputProtocol {
     var category: Observable<MoviesListCategory> { get }
     var error: Observable<String> { get }
     var isEmpty: Bool { get }
+    var isCached: Bool { get }
     var screenTitle: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
@@ -61,6 +60,7 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
     let category: Observable<MoviesListCategory> = Observable(.popular)
     let error: Observable<String> = Observable("")
     var isEmpty: Bool { return items.value.isEmpty }
+    var isCached: Bool = false
     let screenTitle = NSLocalizedString("Movies", comment: "")
     let emptyDataTitle = NSLocalizedString("Search results", comment: "")
     let errorTitle = NSLocalizedString("Error", comment: "")
@@ -88,6 +88,7 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
     }
 
     private func resetPages() {
+        isCached = false
         currentPage = 0
         totalPageCount = 1
         pages.removeAll()
@@ -104,8 +105,12 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
             completion: { result in
                 switch result {
                 case .success(let page):
+                    self.isCached = false
                     self.appendPage(page)
                 case .failure(let error):
+                    if (self.pages.movies.count > 0) {
+                        self.isCached = true
+                    }
                     self.handle(error: error)
                 }
                 self.loading.value = .none
@@ -128,7 +133,13 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
 
 extension MoviesListViewModel {
 
-    func viewDidLoad() { }
+    func viewDidLoad() {
+        didChangeList(to: .popular)
+    }
+    
+    func refresh() {
+        load(moviesListCategory: category.value, loading: MoviesListViewModelLoading.refresh)
+    }
 
     func didLoadNextPage() {
         guard hasMorePages, loading.value == .none else { return }
@@ -148,5 +159,7 @@ extension MoviesListViewModel {
 // MARK: - Private
 
 private extension Array where Element == MoviesListResponseEntity {
-    var movies: [MovieEntity] { flatMap { $0.movies is Set<MovieEntity> ? $0.movies as! Set<MovieEntity> : [] } }
+    var movies: [MovieEntity] {
+        return (flatMap { $0.movies as! Set<MovieEntity> }).sorted {$0.sortOrder < $1.sortOrder}
+    }
 }

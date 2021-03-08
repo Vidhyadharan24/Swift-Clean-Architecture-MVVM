@@ -23,7 +23,7 @@ struct PersistenceManager {
     var backgroundContext: NSManagedObjectContext
     
     private init() {
-        self.init(inMemory: true)
+        self.init(inMemory: false)
     }
 
     init(inMemory: Bool = false) {
@@ -31,13 +31,6 @@ struct PersistenceManager {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
-        
-        viewContext = container.viewContext
-        viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        viewContext.automaticallyMergesChangesFromParent = true
-        
-        backgroundContext = container.newBackgroundContext()
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -55,6 +48,16 @@ struct PersistenceManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+        let stores = container.persistentStoreCoordinator.persistentStores
+        for store in stores {
+            print("\(store.configurationName) store url: \(String(describing: store.url))")
+        }
+        
+        viewContext = container.viewContext
+        viewContext.automaticallyMergesChangesFromParent = true
+        
+        backgroundContext = container.newBackgroundContext()
     }
     
     func saveContext() {

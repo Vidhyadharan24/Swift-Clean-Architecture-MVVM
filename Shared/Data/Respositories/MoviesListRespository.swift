@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MoviesListCategory: String, Encodable {
+enum MoviesListCategory: String, Encodable, CaseIterable {
     case upcoming
     case top_rated
     case popular
@@ -22,10 +22,10 @@ protocol MoviesListRepositoryProtocol {
 
 final class MoviesListRepository {
 
-    private let networkDecodableService: NetworkDecodableService
-    private let cache: MoviesListStorageService
+    private let networkDecodableService: NetworkDecodableServiceProtocol
+    private let cache: MoviesListStorageServiceProtocol
 
-    init(networkDecodableService: NetworkDecodableService, cache: MoviesListStorageService) {
+    init(networkDecodableService: NetworkDecodableServiceProtocol, cache: MoviesListStorageServiceProtocol) {
         self.networkDecodableService = networkDecodableService
         self.cache = cache
     }

@@ -39,7 +39,8 @@ extension NetworkDataService: NetworkDataServiceProtocol {
     private func request(request: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellable {
         
         let sessionDataTask = sessionManager.request(urlRequest: request) { data, response, requestError in
-            
+            self.logger.log(request: request)
+
             if let requestError = requestError {
                 var error: NetworkDataServiceError
                 if let response = response as? HTTPURLResponse {

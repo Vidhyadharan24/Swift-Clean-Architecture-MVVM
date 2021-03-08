@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="MovieEntity" representedClassName="MovieEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="id" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="overview" optional="YES" attributeType="String"/>
         <attribute name="popularity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="posterPath" optional="YES" attributeType="String"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="moviesResponse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesListResponseEntity" inverseName="movies" inverseEntity="MoviesListResponseEntity"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="id"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
     </entity>
     <entity name="MoviesListRequestEntity" representedClassName="MoviesListRequestEntity" syncable="YES" codeGenerationType="class">
         <attribute name="category" attributeType="String"/>
@@ -25,7 +21,7 @@
         <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MoviesListRequestEntity" inverseName="response" inverseEntity="MoviesListRequestEntity"/>
     </entity>
     <elements>
-        <element name="MovieEntity" positionX="160" positionY="192" width="128" height="119"/>
+        <element name="MovieEntity" positionX="160" positionY="192" width="128" height="134"/>
         <element name="MoviesListRequestEntity" positionX="45" positionY="162" width="128" height="74"/>
         <element name="MoviesListResponseEntity" positionX="54" positionY="171" width="128" height="89"/>
     </elements>
