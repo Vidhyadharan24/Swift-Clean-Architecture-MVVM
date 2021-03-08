@@ -47,7 +47,7 @@ final class MovieDetailsViewController: UIViewController, StoryboardInstantiable
     private func setupViews() {
         title = viewModel.title
         
-        offlineViewTopConstraint.constant = -offlineView.frame.height
+        offlineViewTopConstraint.constantq = -offlineView.frame.height
         titleLabel.text = viewModel.title
         overviewValueLabel.text = viewModel.overview
         movieImageView.isHidden = viewModel.isPosterImageHidden
