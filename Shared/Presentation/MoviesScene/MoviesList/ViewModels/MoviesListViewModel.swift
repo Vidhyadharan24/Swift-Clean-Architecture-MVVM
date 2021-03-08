@@ -108,7 +108,7 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
                     self.isCached = false
                     self.appendPage(page)
                 case .failure(let error):
-                    if (self.pages.movies.count > 0) {
+                    if (self.items.value.count > 0) {
                         self.isCached = true
                     }
                     self.handle(error: error)
@@ -127,6 +127,11 @@ final class MoviesListViewModel: MoviesListViewModelProtocol {
         resetPages()
         load(moviesListCategory: moviesListCategory, loading: .fullScreen)
     }
+    
+    private func refresh(moviesListCategory: MoviesListCategory) {
+        resetPages()
+        load(moviesListCategory: moviesListCategory, loading: .refresh)
+    }
 }
 
 // MARK: - INPUT. View event methods
@@ -138,7 +143,7 @@ extension MoviesListViewModel {
     }
     
     func refresh() {
-        load(moviesListCategory: category.value, loading: MoviesListViewModelLoading.refresh)
+        refresh(moviesListCategory: category.value)
     }
 
     func didLoadNextPage() {

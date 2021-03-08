@@ -116,7 +116,12 @@ class MoviesListViewController: UIViewController, StoryboardInstantiable {
             } else {
                 hideNoDataLabel()
             }
-        
+            
+            if (viewModel.isCached) {
+                showOfflineView()
+            } else {
+                hideOfflineView()
+            }
         }
 
         moviesTableViewController?.updateLoading(loading)
