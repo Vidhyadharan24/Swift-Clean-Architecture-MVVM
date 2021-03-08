@@ -8,9 +8,9 @@
 import Foundation
 
 enum MoviesListCategory: String, Encodable, CaseIterable {
-    case upcoming
-    case top_rated
     case popular
+    case top_rated
+    case upcoming
 }
 
 protocol MoviesListRepositoryProtocol {

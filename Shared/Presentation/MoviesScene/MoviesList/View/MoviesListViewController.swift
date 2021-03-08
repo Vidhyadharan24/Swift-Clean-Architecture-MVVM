@@ -56,6 +56,7 @@ class MoviesListViewController: UIViewController, StoryboardInstantiable {
         segmentControl.backgroundColor = view.backgroundColor
         segmentControl.removeAllSegments()
         
+        var segment = 0
         for type in MoviesListCategory.allCases {
             let title: String
             switch type {
@@ -69,11 +70,11 @@ class MoviesListViewController: UIViewController, StoryboardInstantiable {
             
             segmentControl.insertSegment(action: UIAction(title: title, handler: { [weak self] _ in
                 self?.viewModel.didChangeList(to: type)
-            }), at: 0, animated: false)
+            }), at: segment, animated: false)
+            
+            segment = segment + 1
         }
-        
-        segmentControl.selectedSegmentIndex = 0
-        
+                
         moviesTableViewController?.tableView.backgroundColor  = view.backgroundColor
                 
         hideNoDataLabel()
@@ -92,7 +93,8 @@ class MoviesListViewController: UIViewController, StoryboardInstantiable {
     }
     
     private func updateCategory(_ category: MoviesListCategory) {
-        
+        let allCases = MoviesListCategory.allCases
+        segmentControl.selectedSegmentIndex = allCases.firstIndex(of: category) ?? 0
     }
 
     private func updateLoading(_ loading: MoviesListViewModelLoading?) {
