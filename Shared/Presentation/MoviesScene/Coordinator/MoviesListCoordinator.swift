@@ -9,7 +9,7 @@ import UIKit
 
 protocol MoviesListCoordinatorDependencies  {
     func makeMoviesListViewController(actions: MoviesListViewModelActions) -> MoviesListViewController
-    func makeMoviesDetailsViewController(movie: MovieEntity) -> UIViewController
+    func makeMoviesDetailsViewController(movie: MovieEntity) -> MovieDetailsViewController
 }
 
 final class MoviesListCoordinator {

@@ -48,15 +48,14 @@ final class MoviesSceneDIContainer {
     }
     
     // MARK: - Movie Details
-    func makeMoviesDetailsViewController(movie: MovieEntity) -> UIViewController {
-        UIViewController()
-//        return MovieDetailsViewController.create(with: makeMoviesDetailsViewModel(movie: movie))
+    func makeMoviesDetailsViewController(movie: MovieEntity) -> MovieDetailsViewController {
+        return MovieDetailsViewController.create(with: makeMoviesDetailsViewModel(movie: movie))
     }
 
-//    func makeMoviesDetailsViewModel(movie: Movie) -> MovieDetailsViewModel {
-//        return DefaultMovieDetailsViewModel(movie: movie,
-//                                            posterImagesRepository: makePosterImagesRepository())
-//    }
+    func makeMoviesDetailsViewModel(movie: MovieEntity) -> MovieDetailsViewModelProtocol {
+        return MovieDetailsViewModel(movie: movie,
+                                     posterImagesRepository: makePosterImagesRepository())
+    }
     
     // MARK: - Coordinators
     func makeMoviesListCoordinator(navigationController: UINavigationController) -> MoviesListCoordinator {
